@@ -29,7 +29,7 @@ import { Root } from './components/Root';
 import { AlertDisplay, OAuthRequestDialog } from '@backstage/core-components';
 import { createApp } from '@backstage/app-defaults';
 import { FlatRoutes } from '@backstage/core-app-api';
-import { MyPagePage } from '@internal/plugin-my-page';
+import { MyPage } from '@internal/plugin-my-page';
 
 const app = createApp({
   apis,
@@ -81,7 +81,7 @@ const routes = (
       {searchPage}
     </Route>
     <Route path="/settings" element={<UserSettingsPage />} />
-    <Route path="/my-page" element={<MyPagePage />}/>
+    <Route path="/my-page" element={<MyPage />}/>
   </FlatRoutes>
 );
 
