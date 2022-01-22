@@ -4,6 +4,7 @@ import React, { createContext, useState } from 'react'
 import { ViewControl } from '../ViewControl'
 
 export const EditContext = createContext(false)
+
 export const MyPageComponent = () => {
   const [editing, setEditing] = useState(false)
   const toggleEditing = () => setEditing(!editing)
