@@ -10,17 +10,11 @@
     "@backstage/core-app-api": "^0.5.0",
     "@backstage/core-components": "^0.8.5",
     "@backstage/core-plugin-api": "^0.6.0",
-    "@backstage/integration-react": "^0.1.19",
-    "@backstage/plugin-api-docs": "^0.7.0",
     "@backstage/plugin-catalog": "^0.7.9",
     "@backstage/plugin-catalog-import": "^0.7.10",
     "@backstage/plugin-catalog-react": "^0.6.12",
-    "@backstage/plugin-github-actions": "^0.4.32",
     "@backstage/plugin-org": "^0.4.0",
-    "@backstage/plugin-scaffolder": "^0.12.0",
     "@backstage/plugin-search": "^0.5.6",
-    "@backstage/plugin-tech-radar": "^0.5.3",
-    "@backstage/plugin-techdocs": "^0.13.0",
     "@backstage/plugin-user-settings": "^0.3.17",
     "@backstage/theme": "^0.2.14",
     "@internal/plugin-my-page": "^0.1.0",
@@ -41,33 +35,14 @@
     "@types/jest": "^26.0.7",
     "@types/node": "^14.14.32",
     "@types/react-dom": "*",
-    "cross-env": "^7.0.0",
-    "cypress": "^7.3.0",
-    "eslint-plugin-cypress": "^2.10.3",
-    "start-server-and-test": "^1.10.11"
+    "cross-env": "^7.0.0"
   },
   "scripts": {
     "start": "backstage-cli app:serve",
     "build": "backstage-cli app:build",
     "clean": "backstage-cli clean",
     "test": "backstage-cli test",
-    "test:e2e": "cross-env PORT=3001 start-server-and-test start http://localhost:3001 cy:dev",
-    "test:e2e:ci": "cross-env PORT=3001 start-server-and-test start http://localhost:3001 cy:run",
-    "lint": "backstage-cli lint",
-    "cy:dev": "cypress open",
-    "cy:run": "cypress run"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "lint": "backstage-cli lint"
   },
   "files": [
     "dist"
