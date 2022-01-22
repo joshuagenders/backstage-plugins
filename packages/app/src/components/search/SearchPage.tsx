@@ -1,8 +1,6 @@
 import React from 'react';
 import { makeStyles, Theme, Grid, List, Paper } from '@material-ui/core';
-
 import { CatalogResultListItem } from '@backstage/plugin-catalog';
-import { DocsResultListItem } from '@backstage/plugin-techdocs';
 
 import {
   SearchBar,
@@ -86,13 +84,6 @@ const SearchPage = () => {
                       case 'software-catalog':
                         return (
                           <CatalogResultListItem
-                            key={document.location}
-                            result={document}
-                          />
-                        );
-                      case 'techdocs':
-                        return (
-                          <DocsResultListItem
                             key={document.location}
                             result={document}
                           />
