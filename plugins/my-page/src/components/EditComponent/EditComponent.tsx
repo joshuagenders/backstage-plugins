@@ -1,8 +1,16 @@
 import React, { useContext } from 'react';
 import { Panel } from '../../types';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { Button } from '@material-ui/core';
+import { Button, makeStyles, FormControl, InputLabel, Input, MenuItem, Select } from '@material-ui/core';
 import { ComponentFactoryContext } from '../MyPageComponent';
+
+const useStyles = makeStyles({
+  input: {
+    width: '230px',
+    padding: '12px 20px',
+    margin: '8px'
+  }
+})
 
 type EditComponentProps = {
   config: Panel | undefined;
@@ -26,32 +34,41 @@ export const EditComponent = ({
   const onSubmit: SubmitHandler<Panel> = formData => {
     update(formData);
   };
-
+  const style = useStyles()
   return (
-    <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <label htmlFor="entityRef">Entity Ref</label>
-        <input
+    <div style={{margin: '10px'}}>
+      <p>
+      <FormControl>
+        <InputLabel color='secondary' variant='outlined' htmlFor="entityRef">Entity Ref</InputLabel>
+        <Input 
           id="entityRef"
           {...register('entityRef', { required: false, pattern: /.+:.+\/.+/ })}
-        />
+          className={style.input}
+          aria-describedby="Entity Reference. E.g. user:default/guest" />
         {errors.entityRef?.type === 'pattern' && (
           <p>'Entity ref must be in the format kind:namespace/name'</p>
         )}
-        <label htmlFor="componentId">Component</label>
-        <select id="componentId" {...register('id', { required: true })}>
+      </FormControl>
+      <FormControl>
+        <InputLabel color='secondary' variant='outlined' htmlFor="componentId">Component</InputLabel>
+        <Select
+          id="componentId"
+          {...register('id', { required: true })}
+          className={style.input}
+        >
           {ids.map(id => (
-            <option key={`scomponent-${id}`} value={id}>
+            <MenuItem key={`scomponent-${id}`} value={id}>
               {id}
-            </option>
+            </MenuItem>
           ))}
-        </select>
+        </Select>
         {errors.id?.type === 'required' && <p>'Required'</p>}
-        <input type="submit" value="Save" />
-      </form>
-      <Button color="secondary" onClick={remove}>
-        Remove
-      </Button>
-    </>
+      </FormControl>
+      </p>
+      <p>
+        <Button onClick={handleSubmit(onSubmit)}>Save</Button>
+        <Button color="secondary" onClick={remove}>Remove</Button>
+      </p>
+    </div>
   );
 };

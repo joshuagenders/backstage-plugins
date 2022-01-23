@@ -30,11 +30,12 @@ const useDrawerContentStyles = makeStyles((theme: Theme) =>
       justifyContent: 'space-between',
     },
     icon: {
-      fontSize: 20,
+      fontSize: 16,
     },
     content: {
-      height: '80%',
-      backgroundColor: '#AAAAAA',
+      height: '100%',
+      'margin-top': '10px',
+      backgroundColor: '#595959',
     },
     secondaryAction: {
       marginLeft: theme.spacing(2.5),

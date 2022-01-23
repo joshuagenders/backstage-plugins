@@ -23,9 +23,7 @@ export const EditPageComponent = () => {
   };
   return (
     <>
-      <Button color="primary" onClick={add}>
-        Add
-      </Button>
+      <Button color="primary" variant="outlined" style={{width: '100%'}} onClick={add}>Add</Button>
       {config?.value?.items?.map((v, index) => (
         <EditComponent
           key={`edit-${index}`}
