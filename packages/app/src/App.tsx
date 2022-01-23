@@ -4,9 +4,10 @@ import {
   CatalogEntityPage,
   CatalogIndexPage,
   catalogPlugin,
+  EntityAboutCard,
 } from '@backstage/plugin-catalog';
 import { CatalogImportPage } from '@backstage/plugin-catalog-import';
-import { orgPlugin } from '@backstage/plugin-org';
+import { EntityMembersListCard, EntityOwnershipCard, EntityUserProfileCard, orgPlugin } from '@backstage/plugin-org';
 import { SearchPage } from '@backstage/plugin-search';
 import { UserSettingsPage } from '@backstage/plugin-user-settings';
 import { apis } from './apis';
@@ -31,13 +32,22 @@ const app = createApp({
 const AppProvider = app.getProvider();
 const AppRouter = app.getRouter();
 
-const ids = ['EntityName', 'EntityType'];
+const ids = ['EntityName', 'EntityType', 'EntityUserProfileCard', 'EntityOwnershipCard', 'EntityMembersListCard', 'EntityAboutCard'];
 const componentFactory = (id: string) => {
   switch (id) {
     case 'EntityName':
       return <EntityValue path="metadata.name" />;
     case 'EntityType':
       return <EntityValue path="spec.type" />;
+    case 'EntityUserProfileCard':
+      return <EntityUserProfileCard variant="gridItem" />
+    case 'EntityOwnershipCard':
+      return <EntityOwnershipCard variant="gridItem" />
+    case 'EntityMembersListCard':
+      return <EntityMembersListCard />
+    case 'EntityAboutCard':
+        return <EntityAboutCard />
+  
     default:
       return <></>;
   }

@@ -75,7 +75,6 @@ export const ViewControl = () => {
 
   return (
     <>
-      <ViewPageComponent />
       <Button
         variant="contained"
         color="primary"
@@ -83,6 +82,7 @@ export const ViewControl = () => {
       >
         Edit
       </Button>
+      <ViewPageComponent />
       <Drawer
         classes={{ paper: classes.paper }}
         anchor="right"

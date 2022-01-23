@@ -9,6 +9,7 @@ import {
   Input,
   MenuItem,
   Select,
+  NativeSelect
 } from '@material-ui/core';
 import { ComponentFactoryContext } from '../MyPageComponent';
 
@@ -45,7 +46,7 @@ export const EditComponent = ({
   const style = useStyles();
   return (
     <div style={{ margin: '10px' }}>
-      <p>
+      <span>
         <FormControl>
           <InputLabel color="secondary" variant="outlined" htmlFor="entityRef">
             Entity Ref
@@ -71,26 +72,26 @@ export const EditComponent = ({
           >
             Component
           </InputLabel>
-          <Select
+          <NativeSelect
             id="componentId"
             {...register('id', { required: true })}
             className={style.input}
           >
             {ids.map(id => (
-              <MenuItem key={`scomponent-${id}`} value={id}>
+              <option key={`scomponent-${id}`} value={id}>
                 {id}
-              </MenuItem>
+              </option>
             ))}
-          </Select>
+          </NativeSelect>
           {errors.id?.type === 'required' && <p>'Required'</p>}
         </FormControl>
-      </p>
-      <p>
+      </span>
+      <span>
         <Button onClick={handleSubmit(onSubmit)}>Save</Button>
         <Button color="secondary" onClick={remove}>
           Remove
         </Button>
-      </p>
+      </span>
     </div>
   );
 };

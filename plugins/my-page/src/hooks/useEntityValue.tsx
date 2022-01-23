@@ -13,6 +13,7 @@ const prop =
 
 export const useEntityValue = (path: string) => {
   const { entity, loading, error } = useEntity();
+  if (!path) return '';
   if (loading) return '';
   if (error) return 'error';
   return prop(path)(entity);
