@@ -22,9 +22,9 @@ export const EditComponent = ({ config, update, remove }: EditComponentProps) =>
     return (<>
         <form onSubmit={handleSubmit(onSubmit)}>
             <label htmlFor='entityRef'>Entity Ref</label>
-            <input id="entityRef" {...register("entityRef")} />
+            <input id="entityRef" {...register("entityRef", { pattern: /.+:.+\/.+/ })} />
             <label htmlFor='componentId'>Component</label>
-            <select id="componentId" {...register("id")}>
+            <select id="componentId" {...register("id", { required: true })}>
                 {ids.map(id => <option value={id}>{id}</option>)}
             </select>
             <input type="submit" value="Save" />
