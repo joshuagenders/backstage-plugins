@@ -10,8 +10,8 @@ export const ConfigurableGridComponent = ({ rows, columns }: { rows: number, col
     <Grid container  spacing={5}>
     {
         Array.from({length: rows}, (_, r) => 
-            <Grid direction="row">
-                {Array.from({length: columns}, (__, c) => <Grid item>c: {c} r: {r}</Grid>)}
+            <Grid container direction="row" key={`cgrid-row-${r}`}>
+                {Array.from({length: columns}, (__, c) => <Grid item key={`cgrid-item-${r}-${c}`}>c: {c} r: {r}</Grid>)}
             </Grid>
         )
     }

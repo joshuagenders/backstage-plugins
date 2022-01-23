@@ -8,3 +8,5 @@ To start the app, run:
 yarn install
 yarn dev
 ```
+
+todo - composable table, rows/cols each have own entity provider, values have components

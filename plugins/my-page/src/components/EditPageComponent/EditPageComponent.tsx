@@ -1,30 +1,26 @@
 import React from 'react'
-import { storageApiRef, useApi } from '@backstage/core-plugin-api'
-import { useObservable } from 'react-use'
-import { useForm, SubmitHandler } from "react-hook-form"
-
-type Config = {
-    rows: number
-    columns: number
-}
+import { Panel } from '../../types'
+import { EditComponent } from '../EditComponent'
+import { Button } from '@material-ui/core'
+import { useLocalConfig } from '../../hooks/useLocalConfig'
 
 export const EditPageComponent = () => {
-    const storageApi = useApi(storageApiRef)
-    const data = storageApi.forBucket('my-page')
-    const config = useObservable(data.observe$<Config>('config'))
-
-    const { register, handleSubmit } = useForm<Config>({
-        defaultValues: { ...config?.value ?? { rows:0, columns:0 }}
-    })
-    const onSubmit: SubmitHandler<Config> = formData => {
-        data.set('config', formData)
+    const { config, setConfig } = useLocalConfig()
+    const update = (index: number) => (c: Panel) => {
+        setConfig({
+            items: config?.value?.items.map((v, i) => index === i ? c : v) ?? []
+        })
     }
-  
-    return (
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <input {...register("rows")} />
-        <input {...register("columns")} />  
-        <input type="submit" />
-    </form>
-    )
+    const add = () => {
+        setConfig({ items: [...config?.value?.items ?? [{rows:1, columns: 1}], {rows:1, columns:1}] })
+    }
+    const remove = (index: number) => () =>{
+        setConfig({ items: config?.value?.items.filter((_, i) => i !== index) ?? [] })
+    }
+    return <>
+        <Button color='primary' onClick={add}>Add</Button>
+        {config?.value?.items?.map((v, index) =>
+            <EditComponent key={`edit-${index}`} config={v} update={update(index)} remove={remove(index)} />
+        )}
+    </>
 }
