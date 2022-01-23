@@ -12,7 +12,6 @@ import {
 import {
   CatalogIcon,
   Content,
-  DocsIcon,
   Header,
   Page,
 } from '@backstage/core-components';
@@ -54,12 +53,7 @@ const SearchPage = () => {
                   value: 'software-catalog',
                   name: 'Software Catalog',
                   icon: <CatalogIcon />,
-                },
-                {
-                  value: 'techdocs',
-                  name: 'Documentation',
-                  icon: <DocsIcon />,
-                },
+                }
               ]}
             />
             <Paper className={classes.filters}>

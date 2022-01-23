@@ -6,7 +6,6 @@ import {
 } from '@backstage/plugin-search-backend-node';
 import { PluginEnvironment } from '../types';
 import { DefaultCatalogCollator } from '@backstage/plugin-catalog-backend';
-import { DefaultTechDocsCollator } from '@backstage/plugin-techdocs-backend';
 
 export default async function createPlugin({
   logger,
@@ -24,16 +23,6 @@ export default async function createPlugin({
     defaultRefreshIntervalSeconds: 600,
     collator: DefaultCatalogCollator.fromConfig(config, {
       discovery,
-      tokenManager,
-    }),
-  });
-
-  // collator gathers entities from techdocs.
-  indexBuilder.addCollator({
-    defaultRefreshIntervalSeconds: 600,
-    collator: DefaultTechDocsCollator.fromConfig(config, {
-      discovery,
-      logger,
       tokenManager,
     }),
   });

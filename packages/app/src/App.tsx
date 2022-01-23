@@ -16,7 +16,7 @@ import { Root } from './components/Root';
 import { AlertDisplay, OAuthRequestDialog } from '@backstage/core-components';
 import { createApp } from '@backstage/app-defaults';
 import { FlatRoutes } from '@backstage/core-app-api';
-import { MyPage } from '@internal/plugin-my-page';
+import { EntityValue, MyPage } from '@internal/plugin-my-page';
 
 const app = createApp({
   apis,
@@ -30,6 +30,18 @@ const app = createApp({
 
 const AppProvider = app.getProvider();
 const AppRouter = app.getRouter();
+
+const ids = ['EntityName', 'EntityType']
+const componentFactory = (id: string) => {
+  switch(id){
+    case 'EntityName':
+      return <EntityValue path='metadata.name' />
+    case 'EntityType':
+      return <EntityValue path='spec.type' />
+    default:
+      return <></>
+  }
+}
 
 const routes = (
   <FlatRoutes>
@@ -46,7 +58,7 @@ const routes = (
       {searchPage}
     </Route>
     <Route path="/settings" element={<UserSettingsPage />} />
-    <Route path="/my-page" element={<MyPage componentFactory={() => null} ids={[]} /> }/>
+    <Route path="/my-page" element={<MyPage componentFactory={componentFactory} ids={ids} /> }/>
   </FlatRoutes>
 );
 
