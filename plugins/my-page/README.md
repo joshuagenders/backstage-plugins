@@ -1,13 +1,5 @@
-# my-page
-
-Welcome to the my-page plugin!
-
-_This plugin was created through the Backstage CLI_
+# My Page
+User-customisable page for Backstage components.
 
 ## Getting started
-
-Your plugin has been added to the example app in this repository, meaning you'll be able to access it by running `yarn start` in the root directory, and then navigating to [/my-page](http://localhost:3000/my-page).
-
-You can also serve the plugin in isolation by running `yarn start` in the plugin directory.
-This method of serving the plugin provides quicker iteration speed and a faster startup and hot reloads.
-It is only meant for local development, and the setup for it can be found inside the [/dev](./dev) directory.
+Run `yarn start` and navigate to [/my-page](http://localhost:3000/my-page).
