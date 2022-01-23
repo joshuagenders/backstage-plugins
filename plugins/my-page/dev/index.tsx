@@ -20,6 +20,18 @@ const entity: Entity = {
   }
 }
 
+const ids = ['EntityName', 'EntityType']
+const componentFactory = (id: string) => {
+  switch(id){
+    case 'EntityName':
+      return <EntityValueComponent path='metadata.name' />
+    case 'EntityType':
+      return <EntityValueComponent path='spec.type' />
+    default:
+      return <></>
+  }
+}
+
 createDevApp()
   .registerPlugin(myPagePlugin)
   .registerApi({
@@ -32,7 +44,7 @@ createDevApp()
     }) as unknown as CatalogApi,
   })
   .addPage({
-    element: <MyPage componentFactory={() => <EntityValueComponent path='metadata.name' />} ids={['abcd', '1234']} />,
+    element: <MyPage componentFactory={componentFactory} ids={ids} />,
     title: 'Root Page',
     path: '/my-page'
   })

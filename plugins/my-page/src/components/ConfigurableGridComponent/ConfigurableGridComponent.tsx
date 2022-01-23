@@ -7,7 +7,7 @@ import React from 'react'
 // need access to a component context / component provider?
 export const ConfigurableGridComponent = ({ rows, columns }: { rows: number, columns: number }) => 
 <InfoCard>
-    <Grid container  spacing={5}>
+    <Grid container spacing={5}>
     {
         Array.from({length: rows}, (_, r) => 
             <Grid container direction="row" key={`cgrid-row-${r}`}>
