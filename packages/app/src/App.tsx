@@ -31,17 +31,17 @@ const app = createApp({
 const AppProvider = app.getProvider();
 const AppRouter = app.getRouter();
 
-const ids = ['EntityName', 'EntityType']
+const ids = ['EntityName', 'EntityType'];
 const componentFactory = (id: string) => {
-  switch(id){
+  switch (id) {
     case 'EntityName':
-      return <EntityValue path='metadata.name' />
+      return <EntityValue path="metadata.name" />;
     case 'EntityType':
-      return <EntityValue path='spec.type' />
+      return <EntityValue path="spec.type" />;
     default:
-      return <></>
+      return <></>;
   }
-}
+};
 
 const routes = (
   <FlatRoutes>
@@ -58,7 +58,10 @@ const routes = (
       {searchPage}
     </Route>
     <Route path="/settings" element={<UserSettingsPage />} />
-    <Route path="/my-page" element={<MyPage componentFactory={componentFactory} ids={ids} /> }/>
+    <Route
+      path="/my-page"
+      element={<MyPage componentFactory={componentFactory} ids={ids} />}
+    />
   </FlatRoutes>
 );
 

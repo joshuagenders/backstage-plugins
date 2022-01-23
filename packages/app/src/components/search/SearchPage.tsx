@@ -9,12 +9,7 @@ import {
   SearchType,
   DefaultResultListItem,
 } from '@backstage/plugin-search';
-import {
-  CatalogIcon,
-  Content,
-  Header,
-  Page,
-} from '@backstage/core-components';
+import { CatalogIcon, Content, Header, Page } from '@backstage/core-components';
 
 const useStyles = makeStyles((theme: Theme) => ({
   bar: {
@@ -53,7 +48,7 @@ const SearchPage = () => {
                   value: 'software-catalog',
                   name: 'Software Catalog',
                   icon: <CatalogIcon />,
-                }
+                },
               ]}
             />
             <Paper className={classes.filters}>

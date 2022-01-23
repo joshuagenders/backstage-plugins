@@ -1,1 +1,1 @@
-export * from './ViewControl'
+export * from './ViewControl';

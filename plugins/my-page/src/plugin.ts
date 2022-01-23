@@ -1,4 +1,8 @@
-import { createComponentExtension, createPlugin, createRoutableExtension } from '@backstage/core-plugin-api';
+import {
+  createComponentExtension,
+  createPlugin,
+  createRoutableExtension,
+} from '@backstage/core-plugin-api';
 
 import { rootRouteRef } from './routes';
 
@@ -16,18 +20,26 @@ export const MyPage = myPagePlugin.provide(
       import('./components/MyPageComponent').then(m => m.MyPageComponent),
     mountPoint: rootRouteRef,
   }),
-)
+);
 
 export const MyPageView = myPagePlugin.provide(
   createComponentExtension({
     name: 'MyPageView',
-    component: { lazy: () => import('./components/ViewPageComponent').then(m => m.ViewPageComponent) }
-  })
-)
+    component: {
+      lazy: () =>
+        import('./components/ViewPageComponent').then(m => m.ViewPageComponent),
+    },
+  }),
+);
 
 export const EntityValue = myPagePlugin.provide(
   createComponentExtension({
     name: 'EntityValue',
-    component: { lazy: () => import('./components/EntityValueComponent').then(m => m.EntityValueComponent) }
-  })
-)
+    component: {
+      lazy: () =>
+        import('./components/EntityValueComponent').then(
+          m => m.EntityValueComponent,
+        ),
+    },
+  }),
+);

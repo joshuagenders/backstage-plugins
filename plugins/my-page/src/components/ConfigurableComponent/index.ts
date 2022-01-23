@@ -1,1 +1,1 @@
-export * from './ConfigurableComponent'
+export * from './ConfigurableComponent';

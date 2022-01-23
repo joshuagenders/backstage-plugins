@@ -13,6 +13,5 @@
     "paths": {
       "@internal/plugin-my-page": ["./plugins/my-page"]
     }
-  },
-  
+  }
 }

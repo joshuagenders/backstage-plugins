@@ -1,8 +1,8 @@
 export type Config = {
-    items: Panel[]
-}
+  items: Panel[];
+};
 
 export type Panel = {
-    id: string
-    entityRef?: string
-}
+  id: string;
+  entityRef?: string;
+};

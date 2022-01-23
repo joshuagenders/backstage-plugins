@@ -1,1 +1,1 @@
-export * from './ViewPageComponent'
+export * from './ViewPageComponent';

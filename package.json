@@ -17,7 +17,7 @@
     "diff": "lerna run diff --",
     "test": "backstage-cli test",
     "test:all": "lerna run test -- --coverage",
-    "lint": "lerna run lint --since origin/master --",
+    "lint": "lerna run lint --since origin/main --",
     "lint:all": "lerna run lint --",
     "prettier:check": "prettier --check .",
     "create-plugin": "backstage-cli create-plugin --scope internal",

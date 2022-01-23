@@ -11,41 +11,42 @@ const entity: Entity = {
   kind: 'Component',
   metadata: {
     name: 'backstage-plugins',
-    description: 'An example of a Backstage application.'
+    description: 'An example of a Backstage application.',
   },
   spec: {
     type: 'website',
     owner: 'john@example.com',
-    lifecycle: 'experimental'
-  }
-}
+    lifecycle: 'experimental',
+  },
+};
 
-const ids = ['EntityName', 'EntityType']
+const ids = ['EntityName', 'EntityType'];
 const componentFactory = (id: string) => {
-  switch(id){
+  switch (id) {
     case 'EntityName':
-      return <EntityValueComponent path='metadata.name' />
+      return <EntityValueComponent path="metadata.name" />;
     case 'EntityType':
-      return <EntityValueComponent path='spec.type' />
+      return <EntityValueComponent path="spec.type" />;
     default:
-      return <></>
+      return <></>;
   }
-}
+};
 
 createDevApp()
   .registerPlugin(myPagePlugin)
   .registerApi({
     api: catalogApiRef,
     deps: {},
-    factory: () => ({
-      getEntityByName(){
-        return Promise.resolve(entity)
-      }
-    }) as unknown as CatalogApi,
+    factory: () =>
+      ({
+        getEntityByName() {
+          return Promise.resolve(entity);
+        },
+      } as unknown as CatalogApi),
   })
   .addPage({
     element: <MyPage componentFactory={componentFactory} ids={ids} />,
     title: 'Root Page',
-    path: '/my-page'
+    path: '/my-page',
   })
   .render();

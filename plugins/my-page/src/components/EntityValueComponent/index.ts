@@ -1,1 +1,1 @@
-export * from './EntityValueComponent'
+export * from './EntityValueComponent';

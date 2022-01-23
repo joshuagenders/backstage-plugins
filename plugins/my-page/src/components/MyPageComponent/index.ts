@@ -1,1 +1,1 @@
-export * from './MyPageComponent'
+export * from './MyPageComponent';

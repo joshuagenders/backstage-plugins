@@ -1,1 +1,1 @@
-export * from './ConfigurableGridComponent'
+export * from './ConfigurableGridComponent';
