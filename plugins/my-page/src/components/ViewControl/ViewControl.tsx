@@ -26,27 +26,21 @@ const useDrawerContentStyles = makeStyles((theme: Theme) =>
     },
     content: {
       height: '80%',
-      backgroundColor: '#EEEEEE',
+      backgroundColor: '#AAAAAA',
     },
     secondaryAction: {
       marginLeft: theme.spacing(2.5),
-    },
-  }),
-);
+    }
+  })
+)
 
 
-/* Example content wrapped inside the Drawer component */
-const DrawerContent = ({
-    toggleDrawer,
-  }: {
-    toggleDrawer: (isOpen: boolean) => void;
-  }) => {
-    const classes = useDrawerContentStyles();
-  
+const DrawerContent = ({ toggleDrawer }: { toggleDrawer: (isOpen: boolean) => void }) => {
+    const classes = useDrawerContentStyles()
     return (
       <>
         <div className={classes.header}>
-          <Typography variant="h5">Side Panel Title</Typography>
+          <Typography variant="h5">Edit</Typography>
           <IconButton
             key="dismiss"
             title="Close the drawer"
@@ -59,28 +53,10 @@ const DrawerContent = ({
         <div className={classes.content}>
             <EditPageComponent />
         </div>
-        <div>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => toggleDrawer(false)}
-          >
-            Primary Action
-          </Button>
-          <Button
-            className={classes.secondaryAction}
-            variant="outlined"
-            color="primary"
-            onClick={() => toggleDrawer(false)}
-          >
-            Secondary Action
-          </Button>
-        </div>
       </>
     )
   }  
 
-// todo use https://backstage.io/storybook/?path=/story/layout-drawer--default-drawer for edit
 export const ViewControl = () => {
     const [isOpen, toggleDrawer] = useState(false);
     const classes = useDrawerStyles();
@@ -88,21 +64,10 @@ export const ViewControl = () => {
     return (
       <>
         <ViewPageComponent />
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => toggleDrawer(true)}
-        >
+        <Button variant="contained" color="primary" onClick={() => toggleDrawer(true)}>
           Edit
         </Button>
-        <Drawer
-          classes={{
-            paper: classes.paper,
-          }}
-          anchor="right"
-          open={isOpen}
-          onClose={() => toggleDrawer(false)}
-        >
+        <Drawer classes={{ paper: classes.paper }} anchor="right" open={isOpen} onClose={() => toggleDrawer(false)}>
           <DrawerContent toggleDrawer={toggleDrawer} />
         </Drawer>
       </>
