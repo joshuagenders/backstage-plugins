@@ -22,7 +22,7 @@ export const EditComponent = ({ config, update, remove }: EditComponentProps) =>
     return (<>
         <form onSubmit={handleSubmit(onSubmit)}>
             <label htmlFor='entityRef'>Entity Ref</label>
-            <input id="entityRef" {...register("entityRef", { pattern: /.+:.+\/.+/ })} />
+            <input id="entityRef" {...register("entityRef", { required: false, pattern: /.+:.+\/.+/ })} />
             {errors.entityRef?.type === 'pattern' && <p>'Entity ref must be in the format kind:namespace/name'</p>}
             <label htmlFor='componentId'>Component</label>
             <select id="componentId" {...register("id", { required: true })}>
