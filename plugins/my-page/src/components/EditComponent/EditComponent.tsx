@@ -12,7 +12,7 @@ type EditComponentProps = {
 
 export const EditComponent = ({ config, update, remove }: EditComponentProps) => {
     const { ids } = useContext(ComponentFactoryContext)
-    const { register, handleSubmit } = useForm<Panel>({
+    const { register, formState: { errors }, handleSubmit } = useForm<Panel>({
         defaultValues: { ...config ?? {}}
     })
     const onSubmit: SubmitHandler<Panel> = formData => {
@@ -23,10 +23,12 @@ export const EditComponent = ({ config, update, remove }: EditComponentProps) =>
         <form onSubmit={handleSubmit(onSubmit)}>
             <label htmlFor='entityRef'>Entity Ref</label>
             <input id="entityRef" {...register("entityRef", { pattern: /.+:.+\/.+/ })} />
+            {errors.entityRef?.type === 'pattern' && <p>'Entity ref must be in the format kind:namespace/name'</p>}
             <label htmlFor='componentId'>Component</label>
             <select id="componentId" {...register("id", { required: true })}>
-                {ids.map(id => <option value={id}>{id}</option>)}
+                {ids.map(id => <option key={`scomponent-${id}`} value={id}>{id}</option>)}
             </select>
+            {errors.id?.type === 'required' && <p>'Required'</p>}
             <input type="submit" value="Save" />
         </form>
         <Button color='secondary' onClick={remove}>Remove</Button>
