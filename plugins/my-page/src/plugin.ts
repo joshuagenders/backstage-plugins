@@ -24,3 +24,10 @@ export const MyPageView = myPagePlugin.provide(
     component: { lazy: () => import('./components/ViewPageComponent').then(m => m.ViewPageComponent) }
   })
 )
+
+export const EntityValue = myPagePlugin.provide(
+  createComponentExtension({
+    name: 'EntityValue',
+    component: { lazy: () => import('./components/EntityValueComponent').then(m => m.EntityValueComponent) }
+  })
+)
