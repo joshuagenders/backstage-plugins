@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import { useObservable } from "react-use"
 import { Config } from "../types"
 
-const defaultPanel = {rows:0, columns: 0}
+const defaultPanel = {id:''}
 const defaultConfig = {items: [defaultPanel]}
 
 export const useLocalConfig = () => {

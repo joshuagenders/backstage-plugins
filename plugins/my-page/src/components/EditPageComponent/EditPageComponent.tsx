@@ -12,7 +12,7 @@ export const EditPageComponent = () => {
         })
     }
     const add = () => {
-        setConfig({ items: [...config?.value?.items ?? [{rows:1, columns: 1}], {rows:1, columns:1}] })
+        setConfig({ items: [...config?.value?.items ?? [{id: ''}], {id:''}] })
     }
     const remove = (index: number) => () =>{
         setConfig({ items: config?.value?.items.filter((_, i) => i !== index) ?? [] })

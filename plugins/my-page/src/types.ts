@@ -3,6 +3,6 @@ export type Config = {
 }
 
 export type Panel = {
-    rows: number
-    columns: number
+    id: string
+    entityRef?: string
 }

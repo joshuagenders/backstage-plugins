@@ -1,4 +1,4 @@
-import { createPlugin, createRoutableExtension } from '@backstage/core-plugin-api';
+import { createComponentExtension, createPlugin, createRoutableExtension } from '@backstage/core-plugin-api';
 
 import { rootRouteRef } from './routes';
 
@@ -16,4 +16,11 @@ export const MyPage = myPagePlugin.provide(
       import('./components/MyPageComponent').then(m => m.MyPageComponent),
     mountPoint: rootRouteRef,
   }),
-);
+)
+
+export const MyPageView = myPagePlugin.provide(
+  createComponentExtension({
+    name: 'MyPageView',
+    component: { lazy: () => import('./components/ViewPageComponent').then(m => m.ViewPageComponent) }
+  })
+)

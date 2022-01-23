@@ -46,7 +46,7 @@ const routes = (
       {searchPage}
     </Route>
     <Route path="/settings" element={<UserSettingsPage />} />
-    <Route path="/my-page" element={<MyPage />}/>
+    <Route path="/my-page" element={<MyPage componentFactory={() => null} ids={[]} /> }/>
   </FlatRoutes>
 );
 

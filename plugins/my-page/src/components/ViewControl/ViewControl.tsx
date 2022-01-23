@@ -4,8 +4,6 @@ import Close from '@material-ui/icons/Close'
 import { EditPageComponent } from '../EditPageComponent/EditPageComponent'
 import { ViewPageComponent } from '../ViewPageComponent'
 
-
-
 const useDrawerStyles = makeStyles((theme: Theme) =>
   createStyles({
     paper: {
