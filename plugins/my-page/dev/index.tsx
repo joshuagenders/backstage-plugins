@@ -5,6 +5,7 @@ import { catalogApiRef } from '@backstage/plugin-catalog-react';
 import { CatalogApi } from '@backstage/catalog-client';
 import { Entity } from '@backstage/catalog-model';
 import { EntityValueComponent } from '../src/components/EntityValueComponent';
+import { JsonWebValue } from '../src/components/JsonWebValue';
 
 const entity: Entity = {
   apiVersion: 'backstage.io/v1alpha1',
@@ -20,13 +21,15 @@ const entity: Entity = {
   },
 };
 
-const ids = ['EntityName', 'EntityType'];
+const ids = ['EntityName', 'EntityType', 'JsonWebValue'];
 const componentFactory = (id: string) => {
   switch (id) {
     case 'EntityName':
       return <EntityValueComponent path="metadata.name" />;
     case 'EntityType':
       return <EntityValueComponent path="spec.type" />;
+    case 'JsonWebValue':
+      return <JsonWebValue path="$.temperature" title="Temperature London" url="https://goweather.herokuapp.com/weather/london" />
     default:
       return <></>;
   }
