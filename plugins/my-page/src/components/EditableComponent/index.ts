@@ -1,1 +1,1 @@
-export * from './EditableComponent'
+export * from './EditableComponent';

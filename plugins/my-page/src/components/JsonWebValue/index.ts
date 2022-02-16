@@ -1,1 +1,1 @@
-export * from './JsonWebValue'
+export * from './JsonWebValue';

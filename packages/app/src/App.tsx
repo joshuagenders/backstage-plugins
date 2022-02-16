@@ -10,7 +10,6 @@ import { CatalogImportPage } from '@backstage/plugin-catalog-import';
 import { EntityMembersListCard, EntityOwnershipCard, EntityUserProfileCard, orgPlugin } from '@backstage/plugin-org';
 import { SearchPage } from '@backstage/plugin-search';
 import { UserSettingsPage } from '@backstage/plugin-user-settings';
-import { apis } from './apis';
 import { entityPage } from './components/catalog/EntityPage';
 import { searchPage } from './components/search/SearchPage';
 import { Root } from './components/Root';
@@ -20,7 +19,6 @@ import { FlatRoutes } from '@backstage/core-app-api';
 import { EntityValue, MyPage } from '@internal/plugin-my-page';
 
 const app = createApp({
-  apis,
   bindRoutes({ bind }) {
     bind(catalogPlugin.externalRoutes, {});
     bind(orgPlugin.externalRoutes, {

@@ -1,1 +1,1 @@
-export * from './EditPanelComponent'
+export * from './EditPanelComponent';

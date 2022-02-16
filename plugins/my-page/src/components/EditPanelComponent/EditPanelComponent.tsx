@@ -32,15 +32,8 @@ export const EditPanelComponent = ({ slot, setEditing }: {slot: Slot, setEditing
       defaultValues: { ...(config.value ?? {}) },
     });
     const onSubmit: SubmitHandler<SlotConfig> = formData => {
-      console.log({formData})
-      try {
       setConfig(formData);
-      }catch(e){
-        console.log({e})
-      }
-      finally {
       setEditing(false);
-      }
     };
     const style = useStyles();
     return (
