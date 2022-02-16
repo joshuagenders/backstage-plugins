@@ -22,15 +22,15 @@ export const MyPage = myPagePlugin.provide(
   }),
 );
 
-export const MyPageView = myPagePlugin.provide(
-  createComponentExtension({
-    name: 'MyPageView',
-    component: {
-      lazy: () =>
-        import('./components/ViewPageComponent').then(m => m.ViewPageComponent),
-    },
-  }),
-);
+// export const MyPageView = myPagePlugin.provide(
+//   createComponentExtension({
+//     name: 'MyPageView',
+//     component: {
+//       lazy: () =>
+//         import('./components/ViewPageComponent').then(m => m.ViewPageComponent),
+//     },
+//   }),
+// );
 
 export const EntityValue = myPagePlugin.provide(
   createComponentExtension({

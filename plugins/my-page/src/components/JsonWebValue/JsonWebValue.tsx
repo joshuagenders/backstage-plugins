@@ -1,4 +1,4 @@
-import React, { ComponentProps } from 'react'
+import React from 'react'
 import { JSONPath } from 'jsonpath-plus'
 import { useAsync } from 'react-use'
 import { Alert } from '@material-ui/lab'
@@ -15,7 +15,6 @@ export const JsonWebValue = ({ title, url, path }: Props) => {
         if (!url) return undefined
         const result = await fetch(url)
         const json = await result.json()
-        console.log({json: JSON.stringify(json), url})
         return json
     }, [url])
     if (error) return <Alert severity='error'>{error.message}</Alert>

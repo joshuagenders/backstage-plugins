@@ -7,8 +7,6 @@ import {
   FormControl,
   InputLabel,
   Input,
-  MenuItem,
-  Select,
   NativeSelect
 } from '@material-ui/core';
 import { ComponentFactoryContext } from '../MyPageComponent';

@@ -9,4 +9,9 @@ yarn install
 yarn dev
 ```
 
-todo - composable table, rows/cols each have own entity provider, values have components
+TODO
+
+- slot configs to avoid reloading all panels on config change
+- edit components in view
+- custom forms in edit for additional user input
+  - consumers of plugin can register handler including entityRef and custom inputs
