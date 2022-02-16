@@ -34,9 +34,9 @@ export const ConfigurableComponent = ({slot}: {slot: Slot}) => {
   if (entity) {
     return (
       <EntityProvider entity={entity}>
-        {componentFactory(config.value?.componentId, config.value?.props)}
+        {componentFactory(config.value?.componentId, config.value?.props ?? {})}
       </EntityProvider>
     );
   }
-  return componentFactory(config.value?.componentId, config.value?.props);
+  return componentFactory(config.value?.componentId, config.value?.props ?? {});
 };
