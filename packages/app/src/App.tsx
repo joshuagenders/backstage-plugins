@@ -32,15 +32,14 @@ const app = createApp({
 const AppProvider = app.getProvider();
 const AppRouter = app.getRouter();
 
-const schema = new Map<string, FormInputs[]>(
-  [
-    ['EntityValue', [{ name: 'EntityValue', required: true, type: 'string', description: 'JSON path value to apply to Entity' }] ],
-    ['EntityUserProfileCard', [] ],
-    ['EntityOwnershipCard', [] ],
-    ['EntityMembersListCard', [] ],
-    ['EntityAboutCard', [] ]
-  ]
-)
+const schema =
+[
+  { name: 'EntityValue', formInputs: [{ name: 'EntityValue', displayName: 'JSON Path', required: true, type: 'string', description: 'JSON path value to apply to Entity' }] },
+  { name: 'EntityUserProfileCard', requiresEntity: true },
+  { name: 'EntityOwnershipCard', requiresEntity: true },
+  { name: 'EntityMembersListCard', requiresEntity: true },
+  { name: 'EntityAboutCard', requiresEntity: true }
+]
 
 const componentFactory = (id: string, props: {[key: string]:string}) => {
   switch (id) {

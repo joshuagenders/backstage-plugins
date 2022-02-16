@@ -6,7 +6,7 @@ import { CatalogApi } from '@backstage/catalog-client';
 import { Entity } from '@backstage/catalog-model';
 import { EntityValueComponent } from '../src/components/EntityValueComponent';
 import { JsonWebValue } from '../src/components/JsonWebValue';
-import { FormInputs } from '../src/types';
+import { MyPageSchema } from '../src/types';
 
 const entities: Entity[] = [{
   apiVersion: 'backstage.io/v1alpha1',
@@ -39,7 +39,7 @@ const componentFactory = (id: string, props?: { [x: string]: string }) => {
   let city = 'London'
   switch (id) {
     case 'EntityValue':
-      return <EntityValueComponent path="metadata.name" />;
+      return <EntityValueComponent path={props && 'key' in props ? props.key : 'metadata.name'} />;
     case 'Temperature':
       if (props && 'city' in props){
         city = props.city
@@ -50,12 +50,12 @@ const componentFactory = (id: string, props?: { [x: string]: string }) => {
   }
 };
 
-const schema = new Map<string, FormInputs[]>(
-  [
-    ['Temperature', [{ name: 'city', required: true, type: 'string', description: 'City name' }] ],
-    ['EntityValue', [{ name: 'EntityValue', required: true, type: 'string', description: 'JSON path value to apply to Entity' }] ]
-  ],
-)
+const schema: MyPageSchema =
+[
+  { id: 'Temperature', formInputs: [{ name: 'city', displayName: 'City', required: true, type: 'string', description: 'City name' }] },
+  { id: 'EntityValue', requiresEntity: true, formInputs: [{ name: 'key', displayName: 'JSON Path', required: true, type: 'string', description: 'JSON path value to apply to Entity' }] }
+]
+
 
 createDevApp()
   .registerPlugin(myPagePlugin)

@@ -25,7 +25,14 @@ export type LayoutConfig = {
 export type InputTypes = 'number' | 'string';
 export type FormInputs = {
   name: string;
+  displayName: string;
   type: InputTypes;
   required?: boolean;
   description?: string;
 };
+
+export type MyPageSchema = {
+  id: string
+  requiresEntity?: boolean
+  formInputs?: FormInputs[]
+}[]

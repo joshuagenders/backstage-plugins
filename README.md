@@ -8,3 +8,6 @@ To start the app, run:
 yarn install
 yarn dev
 ```
+
+TODO
+add 'requires entity' to schema

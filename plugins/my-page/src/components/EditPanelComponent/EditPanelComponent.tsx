@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { useConfigSlot } from '../../hooks/useConfigSlot'
 import { Slot, SlotConfig } from '../../types'
 import { useForm, SubmitHandler } from 'react-hook-form';
@@ -23,7 +23,7 @@ const useStyles = makeStyles({
 export const EditPanelComponent = ({ slot, setEditing }: {slot: Slot, setEditing: (editing: boolean) => void}) => {
     const { config, setConfig } = useConfigSlot(slot)
     const { schema } = useContext(ComponentFactoryContext);
-    const ids = [...schema?.keys() ?? []]
+    const ids = [...schema?.map(s => s.id) ?? []]
     const {
       register,
       formState: { errors },
@@ -32,14 +32,40 @@ export const EditPanelComponent = ({ slot, setEditing }: {slot: Slot, setEditing
     } = useForm<SlotConfig>({
       defaultValues: { ...(config.value ?? {}) },
     });
+    const [componentId, setComponentId] = useState(getValues('componentId') ?? config.value?.componentId)
     const onSubmit: SubmitHandler<SlotConfig> = formData => {
       setConfig(formData);
       setEditing(false);
     };
     const style = useStyles();
+    const selectedSchema = schema?.find(s => s.id === componentId)
     return (
       <div style={{ margin: '10px' }}>
         <span>
+          <FormControl>
+            <InputLabel
+              color="secondary"
+              variant="outlined"
+              htmlFor="componentId"
+            >
+              Component
+            </InputLabel>
+            <NativeSelect
+              id="componentId"
+              {...register('componentId', { required: true, onChange: () => {
+                setComponentId(getValues('componentId'))
+              } })}
+              className={style.input}
+            >
+              {ids.map(id => (
+                <option key={`scomponent-${id}`} value={id}>
+                  {id}
+                </option>
+              ))}
+            </NativeSelect>
+            {errors.componentId?.type === 'required' && <p>'Required'</p>}
+          </FormControl>
+          {selectedSchema?.requiresEntity && 
           <FormControl>
             <InputLabel color="secondary" variant="outlined" htmlFor="entityRef">
               Entity Ref
@@ -56,33 +82,12 @@ export const EditPanelComponent = ({ slot, setEditing }: {slot: Slot, setEditing
             {errors.entityRef?.type === 'pattern' && (
               <p>'Entity ref must be in the format kind:namespace/name'</p>
             )}
-          </FormControl>
-          <FormControl>
-            <InputLabel
-              color="secondary"
-              variant="outlined"
-              htmlFor="componentId"
-            >
-              Component
-            </InputLabel>
-            <NativeSelect
-              id="componentId"
-              {...register('componentId', { required: true })}
-              className={style.input}
-            >
-              {ids.map(id => (
-                <option key={`scomponent-${id}`} value={id}>
-                  {id}
-                </option>
-              ))}
-            </NativeSelect>
-            {errors.componentId?.type === 'required' && <p>'Required'</p>}
-          </FormControl>
+          </FormControl>}
           {
-            schema?.get(getValues('componentId') ?? '')?.map(input => (
+            selectedSchema?.formInputs?.map(input => (
               <FormControl key={`control-${slot}-${input.name}`}>
                 <InputLabel color="secondary" variant="outlined" htmlFor={input.name}>
-                  {input.name}
+                  {input.displayName}
                 </InputLabel>
                 <Input
                   id={input.name}

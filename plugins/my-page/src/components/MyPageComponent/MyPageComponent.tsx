@@ -8,7 +8,11 @@ export type MyPageComponentProps = {
     id: string,
     props: {[x: string]: string},
   ) => JSX.Element | null;
-  schema?: Map<string, FormInputs[]>
+  schema?: {
+    id: string
+    requiresEntity?: boolean
+    formInputs: FormInputs[]
+  }[]
 };
 
 export const ComponentFactoryContext = createContext<MyPageComponentProps>({
