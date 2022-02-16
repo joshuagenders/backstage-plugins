@@ -22,16 +22,6 @@ export const MyPage = myPagePlugin.provide(
   }),
 );
 
-// export const MyPageView = myPagePlugin.provide(
-//   createComponentExtension({
-//     name: 'MyPageView',
-//     component: {
-//       lazy: () =>
-//         import('./components/ViewPageComponent').then(m => m.ViewPageComponent),
-//     },
-//   }),
-// );
-
 export const EntityValue = myPagePlugin.provide(
   createComponentExtension({
     name: 'EntityValue',
@@ -39,6 +29,18 @@ export const EntityValue = myPagePlugin.provide(
       lazy: () =>
         import('./components/EntityValueComponent').then(
           m => m.EntityValueComponent,
+        ),
+    },
+  }),
+);
+
+export const JsonWebValue = myPagePlugin.provide(
+  createComponentExtension({
+    name: 'JsonWebValue',
+    component: {
+      lazy: () =>
+        import('./components/JsonWebValue').then(
+          m => m.JsonWebValue,
         ),
     },
   }),
