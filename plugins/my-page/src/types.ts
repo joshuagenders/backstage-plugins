@@ -31,8 +31,8 @@ export type FormInputs = {
   description?: string;
 };
 
-export type MyPageSchema = {
-  id: string
-  requiresEntity?: boolean
-  formInputs?: FormInputs[]
-}[]
+export type ComponentConfig = {
+  id: string;
+  requiresEntity?: boolean;
+  formInputs?: FormInputs[];
+};

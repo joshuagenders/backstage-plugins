@@ -6,7 +6,7 @@ import { CatalogApi } from '@backstage/catalog-client';
 import { Entity } from '@backstage/catalog-model';
 import { EntityValueComponent } from '../src/components/EntityValueComponent';
 import { JsonWebValue } from '../src/components/JsonWebValue';
-import { MyPageSchema } from '../src/types';
+import { ComponentConfig } from '../src/types';
 
 const entities: Entity[] = [{
   apiVersion: 'backstage.io/v1alpha1',
@@ -50,12 +50,11 @@ const componentFactory = (id: string, props?: { [x: string]: string }) => {
   }
 };
 
-const schema: MyPageSchema =
+const schema: ComponentConfig[] =
 [
   { id: 'Temperature', formInputs: [{ name: 'city', displayName: 'City', required: true, type: 'string', description: 'City name' }] },
   { id: 'EntityValue', requiresEntity: true, formInputs: [{ name: 'key', displayName: 'JSON Path', required: true, type: 'string', description: 'JSON path value to apply to Entity' }] }
 ]
-
 
 createDevApp()
   .registerPlugin(myPagePlugin)

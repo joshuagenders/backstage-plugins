@@ -16,9 +16,7 @@ import { Root } from './components/Root';
 import { AlertDisplay, OAuthRequestDialog } from '@backstage/core-components';
 import { createApp } from '@backstage/app-defaults';
 import { FlatRoutes } from '@backstage/core-app-api';
-import { EntityValue, MyPage } from '@internal/plugin-my-page';
-// eslint-disable-next-line no-restricted-imports
-import { FormInputs } from '../../../plugins/my-page/src/';
+import { EntityValue, MyPage, ComponentConfig } from '@internal/plugin-my-page';
 
 const app = createApp({
   bindRoutes({ bind }) {
@@ -32,13 +30,13 @@ const app = createApp({
 const AppProvider = app.getProvider();
 const AppRouter = app.getRouter();
 
-const schema =
+const schema: ComponentConfig[] =
 [
-  { name: 'EntityValue', formInputs: [{ name: 'EntityValue', displayName: 'JSON Path', required: true, type: 'string', description: 'JSON path value to apply to Entity' }] },
-  { name: 'EntityUserProfileCard', requiresEntity: true },
-  { name: 'EntityOwnershipCard', requiresEntity: true },
-  { name: 'EntityMembersListCard', requiresEntity: true },
-  { name: 'EntityAboutCard', requiresEntity: true }
+  { id: 'EntityValue', formInputs: [{ name: 'EntityValue', displayName: 'JSON Path', required: true, type: 'string', description: 'JSON path value to apply to Entity' }] },
+  { id: 'EntityUserProfileCard', requiresEntity: true },
+  { id: 'EntityOwnershipCard', requiresEntity: true },
+  { id: 'EntityMembersListCard', requiresEntity: true },
+  { id: 'EntityAboutCard', requiresEntity: true }
 ]
 
 const componentFactory = (id: string, props: {[key: string]:string}) => {

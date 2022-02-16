@@ -1,6 +1,6 @@
 import { Content, Header, Page } from '@backstage/core-components';
 import React, { createContext } from 'react';
-import { FormInputs } from '../../types';
+import { ComponentConfig } from '../../types';
 import { LayoutComponent } from '../LayoutComponent';
 
 export type MyPageComponentProps = {
@@ -8,11 +8,7 @@ export type MyPageComponentProps = {
     id: string,
     props: {[x: string]: string},
   ) => JSX.Element | null;
-  schema?: {
-    id: string
-    requiresEntity?: boolean
-    formInputs: FormInputs[]
-  }[]
+  schema?: ComponentConfig[]
 };
 
 export const ComponentFactoryContext = createContext<MyPageComponentProps>({
