@@ -8,7 +8,7 @@ import { EntityValueComponent } from '../src/components/EntityValueComponent';
 import { JsonWebValue } from '../src/components/JsonWebValue';
 import { FormInputs } from '../src/types';
 
-const entity: Entity = {
+const entities: Entity[] = [{
   apiVersion: 'backstage.io/v1alpha1',
   kind: 'Component',
   metadata: {
@@ -20,17 +20,27 @@ const entity: Entity = {
     owner: 'john@example.com',
     lifecycle: 'experimental',
   },
-};
+},
+{
+  apiVersion: 'backstage.io/v1alpha1',
+  kind: 'Component',
+  metadata: {
+    name: 'test-service',
+    description: 'A service for testing the my-page plugin',
+  },
+  spec: {
+    type: 'service',
+    owner: 'john@example.com',
+    lifecycle: 'experimental',
+  },
+}];
 
-const ids = ['EntityName', 'EntityType', 'JsonWebValue'];
 const componentFactory = (id: string, props?: { [x: string]: string }) => {
   let city = 'London'
   switch (id) {
-    case 'EntityName':
+    case 'EntityValue':
       return <EntityValueComponent path="metadata.name" />;
-    case 'EntityType':
-      return <EntityValueComponent path="spec.type" />;
-    case 'JsonWebValue':
+    case 'Temperature':
       if (props && 'city' in props){
         city = props.city
       }
@@ -42,8 +52,9 @@ const componentFactory = (id: string, props?: { [x: string]: string }) => {
 
 const schema = new Map<string, FormInputs[]>(
   [
-    ['JsonWebValue', [{ name: 'city', required: true, type: 'string', description: 'City name' }] ]
-  ]
+    ['Temperature', [{ name: 'city', required: true, type: 'string', description: 'City name' }] ],
+    ['EntityValue', [{ name: 'EntityValue', required: true, type: 'string', description: 'JSON path value to apply to Entity' }] ]
+  ],
 )
 
 createDevApp()
@@ -53,13 +64,14 @@ createDevApp()
     deps: {},
     factory: () =>
       ({
-        getEntityByName() {
-          return Promise.resolve(entity);
+        getEntityByName(name: string) {
+          const entity = entities.find(e => e.metadata.name === name)
+          return Promise.resolve(entity ?? entities[0]);
         },
       } as unknown as CatalogApi),
   })
   .addPage({
-    element: <MyPage componentFactory={componentFactory} ids={ids} schema={schema} />,
+    element: <MyPage componentFactory={componentFactory} schema={schema} />,
     title: 'Root Page',
     path: '/my-page',
   })

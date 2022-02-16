@@ -20,7 +20,7 @@
     "lint": "lerna run lint --since origin/main --",
     "lint:all": "lerna run lint --",
     "prettier:check": "prettier --check .",
-    "format": "yarn prettier --write '**/*.ts'",
+    "format": "prettier --write **/*.ts",
     "create-plugin": "backstage-cli create-plugin --scope internal",
     "remove-plugin": "backstage-cli remove-plugin"
   },

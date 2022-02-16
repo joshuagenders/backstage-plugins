@@ -1,6 +1,6 @@
-# [Backstage](https://backstage.io)
+# [backstage-plugins](https://backstage.io)
 
-This is your newly scaffolded Backstage App, Good Luck!
+Backstage plugins.
 
 To start the app, run:
 
@@ -8,10 +8,3 @@ To start the app, run:
 yarn install
 yarn dev
 ```
-
-TODO
-
-- slot configs to avoid reloading all panels on config change
-- edit components in view
-- custom forms in edit for additional user input
-  - consumers of plugin can register handler including entityRef and custom inputs

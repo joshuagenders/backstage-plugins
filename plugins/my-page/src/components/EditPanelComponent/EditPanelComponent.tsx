@@ -22,7 +22,8 @@ const useStyles = makeStyles({
 
 export const EditPanelComponent = ({ slot, setEditing }: {slot: Slot, setEditing: (editing: boolean) => void}) => {
     const { config, setConfig } = useConfigSlot(slot)
-    const { ids, schema } = useContext(ComponentFactoryContext);
+    const { schema } = useContext(ComponentFactoryContext);
+    const ids = [...schema?.keys() ?? []]
     const {
       register,
       formState: { errors },

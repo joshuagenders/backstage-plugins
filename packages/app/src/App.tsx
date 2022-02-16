@@ -17,6 +17,8 @@ import { AlertDisplay, OAuthRequestDialog } from '@backstage/core-components';
 import { createApp } from '@backstage/app-defaults';
 import { FlatRoutes } from '@backstage/core-app-api';
 import { EntityValue, MyPage } from '@internal/plugin-my-page';
+// eslint-disable-next-line no-restricted-imports
+import { FormInputs } from '../../../plugins/my-page/src/';
 
 const app = createApp({
   bindRoutes({ bind }) {
@@ -30,11 +32,20 @@ const app = createApp({
 const AppProvider = app.getProvider();
 const AppRouter = app.getRouter();
 
-const ids = ['EntityName', 'EntityType', 'EntityUserProfileCard', 'EntityOwnershipCard', 'EntityMembersListCard', 'EntityAboutCard'];
-const componentFactory = (id: string) => {
+const schema = new Map<string, FormInputs[]>(
+  [
+    ['EntityValue', [{ name: 'EntityValue', required: true, type: 'string', description: 'JSON path value to apply to Entity' }] ],
+    ['EntityUserProfileCard', [] ],
+    ['EntityOwnershipCard', [] ],
+    ['EntityMembersListCard', [] ],
+    ['EntityAboutCard', [] ]
+  ]
+)
+
+const componentFactory = (id: string, props: {[key: string]:string}) => {
   switch (id) {
-    case 'EntityName':
-      return <EntityValue path="metadata.name" />;
+    case 'EntityValue':
+      return <EntityValue path={props && 'key' in props ? props.key : 'metadata.name'} />;
     case 'EntityType':
       return <EntityValue path="spec.type" />;
     case 'EntityUserProfileCard':
@@ -68,7 +79,7 @@ const routes = (
     <Route path="/settings" element={<UserSettingsPage />} />
     <Route
       path="/my-page"
-      element={<MyPage componentFactory={componentFactory} ids={ids} />}
+      element={<MyPage componentFactory={componentFactory} schema={schema} />}
     />
   </FlatRoutes>
 );
