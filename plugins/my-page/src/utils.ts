@@ -10,8 +10,3 @@ export const match = <T>(value: T) => ({
 });
 
 export const eq = (a: any) => (b: any) => a === b;
-
-export const range = (
-  size: number,
-  startAt: number = 0,
-): ReadonlyArray<number> => [...Array(size).keys()].map(i => i + startAt);
