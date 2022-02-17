@@ -1,4 +1,4 @@
-import { EmptyState, Progress } from '@backstage/core-components';
+import { InfoCard, Progress } from '@backstage/core-components';
 import { useApi } from '@backstage/core-plugin-api';
 import { catalogApiRef, EntityProvider } from '@backstage/plugin-catalog-react';
 import { Alert } from '@material-ui/lab';
@@ -7,8 +7,27 @@ import { useAsync } from 'react-use';
 import { useConfigSlot } from '../../hooks/useConfigSlot';
 import { Slot } from '../../types';
 import { ComponentFactoryContext } from '../MyPageComponent';
+import AddIcon from '@material-ui/icons/Add';
 
-export const ConfigurableComponent = ({slot}: {slot: Slot}) => {
+const EmptySlot = ({ slot, setEditing }: { slot: Slot, setEditing: (editing: boolean) => void }) => {
+  return <InfoCard>
+    <div
+      onClick={() => setEditing(true)}
+      onKeyUp={() => setEditing(true)}
+      role="button"
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+      tabIndex={slot}
+      >
+      <AddIcon />
+    </div>
+  </InfoCard>
+}
+
+export const ConfigurableComponent = ({ slot, setEditing }: { slot: Slot, setEditing: (editing: boolean) => void }) => {
   const { config } = useConfigSlot(slot)
   const { componentFactory } = useContext(ComponentFactoryContext);
   const catalogApi = useApi(catalogApiRef);
@@ -25,10 +44,7 @@ export const ConfigurableComponent = ({slot}: {slot: Slot}) => {
     return await catalogApi.getEntityByName({ kind, namespace, name });
   }, [config]);
 
-  // todo add edit button to show editpanelcomponent
-  if (!config.value?.componentId) return <EmptyState missing='data' title="Missing component ID" />
-  // + symbol
-  
+  if (!config.value?.componentId) return <EmptySlot setEditing={setEditing} slot={slot} />
   if (loading) return <Progress />;
   if (error) return <Alert severity="error">{error.message}</Alert>;
   if (entity) {

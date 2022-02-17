@@ -11,6 +11,7 @@ import {
   NativeSelect
 } from '@material-ui/core';
 import { ComponentFactoryContext } from '../MyPageComponent';
+import { InfoCard } from '@backstage/core-components';
 
 const useStyles = makeStyles({
     input: {
@@ -20,7 +21,7 @@ const useStyles = makeStyles({
     },
   });  
 
-export const EditPanelComponent = ({ slot, setEditing }: {slot: Slot, setEditing: (editing: boolean) => void}) => {
+export const EditComponent = ({ slot, setEditing }: {slot: Slot, setEditing: (editing: boolean) => void}) => {
     const { config, setConfig } = useConfigSlot(slot)
     const { schema } = useContext(ComponentFactoryContext);
     const ids = [...schema?.map(s => s.id) ?? []]
@@ -40,7 +41,7 @@ export const EditPanelComponent = ({ slot, setEditing }: {slot: Slot, setEditing
     const style = useStyles();
     const selectedSchema = schema?.find(s => s.id === componentId)
     return (
-      <div style={{ margin: '10px' }}>
+      <InfoCard>
         <span>
           <FormControl>
             <InputLabel
@@ -106,8 +107,11 @@ export const EditPanelComponent = ({ slot, setEditing }: {slot: Slot, setEditing
           <Button color="secondary" onClick={() => setConfig({})}>
             Reset
           </Button>
+          <Button color="secondary" onClick={() => setEditing(false)}>
+            Cancel
+          </Button>
         </span>
-      </div>
+      </InfoCard>
     );
 };
 

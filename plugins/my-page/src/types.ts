@@ -7,7 +7,7 @@ export type Panel = {
   entityRef?: string;
 };
 
-export type Slot = 1 | 2 | 3 | 4 | 5 | 6 | 7;
+export type Slot = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 export type SlotConfig = {
   componentId?: string;
   entityRef?: string;
