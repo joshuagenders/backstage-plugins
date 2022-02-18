@@ -8,6 +8,7 @@ import { useConfigSlot } from '../../hooks/useConfigSlot';
 import { Slot } from '../../types';
 import { ComponentFactoryContext } from '../MyPageComponent';
 import AddIcon from '@material-ui/icons/Add';
+import { EditHoverOut } from './EditHoverOut';
 
 const EmptySlot = ({ slot, setEditing }: { slot: Slot, setEditing: (editing: boolean) => void }) => {
   return <InfoCard>
@@ -47,12 +48,19 @@ export const ConfigurableComponent = ({ slot, setEditing }: { slot: Slot, setEdi
   if (!config.value?.componentId) return <EmptySlot setEditing={setEditing} slot={slot} />
   if (loading) return <Progress />;
   if (error) return <Alert severity="error">{error.message}</Alert>;
+
   if (entity) {
     return (
-      <EntityProvider entity={entity}>
-        {componentFactory(config.value?.componentId, config.value?.props ?? {})}
-      </EntityProvider>
+      <EditHoverOut clickFn={() => setEditing(true)}>
+        <EntityProvider entity={entity}>
+          {componentFactory(config.value?.componentId, config.value?.props ?? {})}
+        </EntityProvider>
+      </EditHoverOut>
     );
   }
-  return componentFactory(config.value?.componentId, config.value?.props ?? {});
+  return (
+    <EditHoverOut clickFn={() => setEditing(true)}>
+      {componentFactory(config.value?.componentId, config.value?.props ?? {})}
+    </EditHoverOut>
+  );
 };

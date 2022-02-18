@@ -1,7 +1,7 @@
-import React, { useContext, useState } from 'react'
+import React, { useCallback, useContext, useState } from 'react'
 import { useConfigSlot } from '../../hooks/useConfigSlot'
 import { Slot, SlotConfig } from '../../types'
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { useForm, SubmitHandler, useWatch } from 'react-hook-form';
 import {
   Button,
   makeStyles,
@@ -29,17 +29,19 @@ export const EditComponent = ({ slot, setEditing }: {slot: Slot, setEditing: (ed
       register,
       formState: { errors },
       handleSubmit,
-      getValues
+      control
     } = useForm<SlotConfig>({
-      defaultValues: { ...(config.value ?? {}) },
+      defaultValues: config.value,
     });
-    const [componentId, setComponentId] = useState(getValues('componentId') ?? config.value?.componentId)
+    const componentId = useWatch({
+      name: "componentId",
+      control
+    });
     const onSubmit: SubmitHandler<SlotConfig> = formData => {
       setConfig(formData);
       setEditing(false);
     };
     const style = useStyles();
-    const selectedSchema = schema?.find(s => s.id === componentId)
     return (
       <InfoCard>
         <span>
@@ -53,11 +55,10 @@ export const EditComponent = ({ slot, setEditing }: {slot: Slot, setEditing: (ed
             </InputLabel>
             <NativeSelect
               id="componentId"
-              {...register('componentId', { required: true, onChange: () => {
-                setComponentId(getValues('componentId'))
-              } })}
+              {...register('componentId', { required: true })}
               className={style.input}
             >
+              <option key='scomponent-undefined' value={undefined} />
               {ids.map(id => (
                 <option key={`scomponent-${id}`} value={id}>
                   {id}
@@ -66,7 +67,7 @@ export const EditComponent = ({ slot, setEditing }: {slot: Slot, setEditing: (ed
             </NativeSelect>
             {errors.componentId?.type === 'required' && <p>'Required'</p>}
           </FormControl>
-          {selectedSchema?.requiresEntity && 
+          {schema?.find(s => s.id === componentId)?.requiresEntity && 
           <FormControl>
             <InputLabel color="secondary" variant="outlined" htmlFor="entityRef">
               Entity Ref
@@ -85,7 +86,7 @@ export const EditComponent = ({ slot, setEditing }: {slot: Slot, setEditing: (ed
             )}
           </FormControl>}
           {
-            selectedSchema?.formInputs?.map(input => (
+            schema?.find(s => s.id === componentId)?.formInputs?.map(input => (
               <FormControl key={`control-${slot}-${input.name}`}>
                 <InputLabel color="secondary" variant="outlined" htmlFor={input.name}>
                   {input.displayName}
