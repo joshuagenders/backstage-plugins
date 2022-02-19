@@ -38,10 +38,7 @@ export const JsonWebValue = myPagePlugin.provide(
   createComponentExtension({
     name: 'JsonWebValue',
     component: {
-      lazy: () =>
-        import('./components/JsonWebValue').then(
-          m => m.JsonWebValue,
-        ),
+      lazy: () => import('./components/JsonWebValue').then(m => m.JsonWebValue),
     },
   }),
 );
