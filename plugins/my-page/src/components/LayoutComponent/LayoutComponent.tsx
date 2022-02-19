@@ -1,9 +1,10 @@
 import { FormControl, Grid, InputLabel, MenuItem, Select } from '@material-ui/core'
-import React from 'react'
+import React, { useContext } from 'react'
 import { useLayoutConfig } from '../../hooks/useLayoutConfig'
 import { Slot } from '../../types'
 import { eq, match } from '../../utils'
 import { ComponentView } from '../ComponentView'
+import { EditContext } from '../MyPageComponent'
 
 const slots : Slot[] = [1,2,3,4,5,6,7,8]
 const firstHalfSlots: Slot[] = [1,2,3, 4]
@@ -38,6 +39,7 @@ const SingleColumnLayout = () => {
 const layouts = ['one-column', 'two-column']
 export const LayoutComponent = () => {
     const { config, setConfig } = useLayoutConfig()
+    const { isEditing } = useContext(EditContext)
     const layout = match(config.value?.layoutName)
         .when(eq('one-column'), SingleColumnLayout)
         .when(eq('two-column'), TwoColumnLayout)
@@ -48,7 +50,7 @@ export const LayoutComponent = () => {
         }
     }
     return <>
-        <FormControl fullWidth>
+        {isEditing && <FormControl fullWidth>
             <InputLabel>Layout</InputLabel>
             <Select
                 labelId="layout-select-label"
@@ -59,7 +61,7 @@ export const LayoutComponent = () => {
             >
                 {layouts.map(l => <MenuItem key={`layout-item-${l}`} value={l}>{l}</MenuItem>)}
             </Select>
-        </FormControl>
+        </FormControl>}
         <div style={{ padding: 20 }}>
             {layout}
         </div>

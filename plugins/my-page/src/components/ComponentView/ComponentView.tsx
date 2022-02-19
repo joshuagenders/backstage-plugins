@@ -1,13 +1,14 @@
-import React, { useState } from 'react'
+import React, { useContext } from 'react'
 import { Slot } from '../../types'
 import { ConfigurableComponent } from '../ConfigurableComponent'
 import { EditComponent } from '../EditComponent'
+import { EditContext } from '../MyPageComponent'
 
 export const ComponentView = ({slot}: {slot: Slot}) => {
-    const [isEditing, setEditing] = useState(false)
+    const { isEditing } = useContext(EditContext)
     return <>
         {isEditing
-            ? <EditComponent slot={slot} setEditing={setEditing} />
-            : <ConfigurableComponent slot={slot} setEditing={setEditing} />}
+            ? <EditComponent slot={slot} />
+            : <ConfigurableComponent slot={slot} />}
     </>
 }

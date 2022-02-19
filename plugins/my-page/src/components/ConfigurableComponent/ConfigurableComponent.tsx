@@ -1,4 +1,4 @@
-import { InfoCard, Progress } from '@backstage/core-components';
+import { Progress } from '@backstage/core-components';
 import { useApi } from '@backstage/core-plugin-api';
 import { catalogApiRef, EntityProvider } from '@backstage/plugin-catalog-react';
 import { Alert } from '@material-ui/lab';
@@ -7,28 +7,8 @@ import { useAsync } from 'react-use';
 import { useConfigSlot } from '../../hooks/useConfigSlot';
 import { Slot } from '../../types';
 import { ComponentFactoryContext } from '../MyPageComponent';
-import AddIcon from '@material-ui/icons/Add';
-import { EditHoverOut } from './EditHoverOut';
 
-const EmptySlot = ({ slot, setEditing }: { slot: Slot, setEditing: (editing: boolean) => void }) => {
-  return <InfoCard>
-    <div
-      onClick={() => setEditing(true)}
-      onKeyUp={() => setEditing(true)}
-      role="button"
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}
-      tabIndex={slot}
-      >
-      <AddIcon />
-    </div>
-  </InfoCard>
-}
-
-export const ConfigurableComponent = ({ slot, setEditing }: { slot: Slot, setEditing: (editing: boolean) => void }) => {
+export const ConfigurableComponent = ({ slot }: { slot: Slot }) => {
   const { config } = useConfigSlot(slot)
   const { componentFactory } = useContext(ComponentFactoryContext);
   const catalogApi = useApi(catalogApiRef);
@@ -45,22 +25,16 @@ export const ConfigurableComponent = ({ slot, setEditing }: { slot: Slot, setEdi
     return await catalogApi.getEntityByName({ kind, namespace, name });
   }, [config]);
 
-  if (!config.value?.componentId) return <EmptySlot setEditing={setEditing} slot={slot} />
+  if (!config.value?.componentId) return <></>
   if (loading) return <Progress />;
   if (error) return <Alert severity="error">{error.message}</Alert>;
 
   if (entity) {
     return (
-      <EditHoverOut clickFn={() => setEditing(true)}>
-        <EntityProvider entity={entity}>
-          {componentFactory(config.value?.componentId, config.value?.props ?? {})}
-        </EntityProvider>
-      </EditHoverOut>
+      <EntityProvider entity={entity}>
+        {componentFactory(config.value?.componentId, config.value?.props ?? {})}
+      </EntityProvider>
     );
   }
-  return (
-    <EditHoverOut clickFn={() => setEditing(true)}>
-      {componentFactory(config.value?.componentId, config.value?.props ?? {})}
-    </EditHoverOut>
-  );
+  return componentFactory(config.value?.componentId, config.value?.props ?? {});
 };

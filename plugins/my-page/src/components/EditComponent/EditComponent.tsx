@@ -10,6 +10,7 @@ import {
   Input,
   NativeSelect
 } from '@material-ui/core';
+import CheckCircleTwoToneIcon from '@material-ui/icons/CheckCircleTwoTone';
 import { ComponentFactoryContext } from '../MyPageComponent';
 import { InfoCard } from '@backstage/core-components';
 
@@ -21,9 +22,14 @@ const useStyles = makeStyles({
     },
   });  
 
-export const EditComponent = ({ slot, setEditing }: {slot: Slot, setEditing: (editing: boolean) => void}) => {
+export const EditComponent = ({ slot }: {slot: Slot}) => {
     const { config, setConfig } = useConfigSlot(slot)
     const { schema } = useContext(ComponentFactoryContext);
+    const [saveSucceeded, setSaveSucceeded] = useState(false)
+    const save = useCallback(() => {
+        setSaveSucceeded(true)
+        setTimeout(() => setSaveSucceeded(false), 3000)
+      }, [setSaveSucceeded])
     const ids = [...schema?.map(s => s.id) ?? []]
     const {
       register,
@@ -39,7 +45,7 @@ export const EditComponent = ({ slot, setEditing }: {slot: Slot, setEditing: (ed
     });
     const onSubmit: SubmitHandler<SlotConfig> = formData => {
       setConfig(formData);
-      setEditing(false);
+      save()
     };
     const style = useStyles();
     return (
@@ -104,13 +110,7 @@ export const EditComponent = ({ slot, setEditing }: {slot: Slot, setEditing: (ed
           }
         </span>
         <span>
-          <Button onClick={handleSubmit(onSubmit)}>Save</Button>
-          <Button color="secondary" onClick={() => setConfig({})}>
-            Reset
-          </Button>
-          <Button color="secondary" onClick={() => setEditing(false)}>
-            Cancel
-          </Button>
+          <Button onClick={handleSubmit(onSubmit)}>Save &nbsp; {saveSucceeded && <CheckCircleTwoToneIcon />}</Button>
         </span>
       </InfoCard>
     );
