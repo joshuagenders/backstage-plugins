@@ -49,11 +49,16 @@ export const EditComponent = ({ slot }: {slot: Slot}) => {
     };
     const style = useStyles();
     return (
-      <InfoCard>
+      <div style={{ marginTop: '20px' }}>
+      <InfoCard
+        title={`Slot ${slot}`}
+        variant='fullHeight'
+        actions={
+          <Button onClick={handleSubmit(onSubmit)}>Save &nbsp; {saveSucceeded && <CheckCircleTwoToneIcon />}</Button>
+        }>
         <span>
           <FormControl>
             <InputLabel
-              color="secondary"
               variant="outlined"
               htmlFor="componentId"
             >
@@ -75,7 +80,7 @@ export const EditComponent = ({ slot }: {slot: Slot}) => {
           </FormControl>
           {schema?.find(s => s.id === componentId)?.requiresEntity && 
           <FormControl>
-            <InputLabel color="secondary" variant="outlined" htmlFor="entityRef">
+            <InputLabel variant="outlined" htmlFor="entityRef">
               Entity Ref
             </InputLabel>
             <Input
@@ -94,7 +99,7 @@ export const EditComponent = ({ slot }: {slot: Slot}) => {
           {
             schema?.find(s => s.id === componentId)?.formInputs?.map(input => (
               <FormControl key={`control-${slot}-${input.name}`}>
-                <InputLabel color="secondary" variant="outlined" htmlFor={input.name}>
+                <InputLabel variant="outlined" htmlFor={input.name}>
                   {input.displayName}
                 </InputLabel>
                 <Input
@@ -109,10 +114,8 @@ export const EditComponent = ({ slot }: {slot: Slot}) => {
             ))
           }
         </span>
-        <span>
-          <Button onClick={handleSubmit(onSubmit)}>Save &nbsp; {saveSucceeded && <CheckCircleTwoToneIcon />}</Button>
-        </span>
       </InfoCard>
+      </div>
     );
 };
 

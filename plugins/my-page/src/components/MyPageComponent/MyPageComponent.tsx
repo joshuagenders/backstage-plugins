@@ -23,7 +23,7 @@ export const EditContext = createContext<{ isEditing: boolean, setEditing: (isEd
 export const MyPageComponent = (props: MyPageComponentProps) => {
   const [isEditing, setEditing] = useState(false)
   return (
-    <Page themeId="tool">
+    <Page themeId="home">
       <EditContext.Provider value={{ isEditing, setEditing }}>
         <Header title="My Page">
           <Button onClick={() => setEditing(!isEditing)}>{isEditing ? 'Exit Editing' : 'Edit'}</Button>
