@@ -3,15 +3,20 @@ import React, { useContext } from 'react'
 import { useLayoutConfig } from '../../hooks/useLayoutConfig'
 import { Slot } from '../../types'
 import { eq, match } from '../../utils'
-import { ComponentView } from '../ComponentView'
+import { ConfigurableComponent } from '../ConfigurableComponent'
+import { EditComponent } from '../EditComponent'
 import { EditContext } from '../MyPageComponent'
 
 const slots : Slot[] = [1,2,3,4,5,6,7,8]
 const firstHalfSlots: Slot[] = [1,2,3, 4]
 const secondHalfSlots : Slot[] = [5,6,7,8]
+
 const PanelView = (slot: Slot) => {
+    const { isEditing } = useContext(EditContext)
     return <Grid key={`grid-${slot}`} item xs={12}>
-        <ComponentView key={`editable-${slot}`} slot={slot} />
+        {isEditing
+            ? <EditComponent slot={slot} />
+            : <ConfigurableComponent slot={slot} />}
     </Grid>
 }
 
@@ -31,10 +36,6 @@ const SingleColumnLayout = () => {
         {slots.map(PanelView)}
     </Grid>
 }
-
-// Todo const WidgetsBar = () => <></>
-// can be positioned top or bottom, widgets are for smaller components
-
 
 const layouts = ['one-column', 'two-column']
 export const LayoutComponent = () => {
